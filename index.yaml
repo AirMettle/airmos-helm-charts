@@ -1,0 +1,15 @@
+apiVersion: v1
+entries:
+  airmos:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2022-10-15T14:03:55.840512423Z"
+    description: AirMOS object storage
+    digest: 1dc27714901057217effa41a251afbee32d4ae35d1bcf5a77a45fa0a5c469571
+    icon: https://airmettle.com/images/logo_256.png
+    name: airmos
+    type: application
+    urls:
+    - https://airmettle.github.io/airmos-helm-charts/airmos-0.1.0.tgz
+    version: 0.1.0
+generated: "2022-10-15T14:03:55.839726787Z"
