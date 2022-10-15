@@ -1,1 +1,1 @@
-# airmos_helm_charts
+# Repository for helm charts
