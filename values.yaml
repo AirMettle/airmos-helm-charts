@@ -1,0 +1,79 @@
+# Default values for AirMOS.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# Number of AirMOS instances to run.  There should be a node per replica if oneReplicaPerNode is set to true.
+replicaCount: 2
+
+# Sets affinity so that there cannot be more than one AirMOS pod per node
+oneReplicaPerNode: true
+adminPassword: airmos
+
+terminationGracePeriodSeconds: 10
+minReadySeconds: 10
+
+image:
+  repository: airmos/airmos
+  pullPolicy: Always
+  tag: "latest"
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+# Creates a load balancer to expose service externally.   type can be set to ClusterIP to not expose.
+service:
+  type: LoadBalancer
+  port: 80
+
+# If an nginx ingress controller is used on the kubernetes cluster, this config can be setup to indicate the hostname
+# for traffic directed to AirMOS
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: airmos.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+
+resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+# Persistent Volume claim for database storage.  Set storageClass to override the default for the kubernetes
+# provider.  Size should be increased based on amount of data that will be stored.
+databaseStorage:
+  hostPath: ""
+  persistentVolume:
+    enabled: true
+    size: 50Gi
+    storageClass: ""
+    labels: {}
+    annotations: {}
+
+# Persistent Volume claim for object storage.  Set storageClass to override the default for the kubernetes
+# provider. Size should be increased based on amount of data that will be stored.
+objectStorage:
+  hostPath: ""
+  persistentVolume:
+    enabled: true
+    size: 50Gi
+    storageClass: ""
+    labels: {}
+    annotations: {}
