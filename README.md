@@ -3,10 +3,10 @@ Repository for the airmettle helm chart to install AirMOS software on a kubernet
 
 ### Prerequisites
 - A running kubernetes cluster.  It can be in the cloud or locally with minikube.
-- Your local environment should have helm and kubectl setup to point to the cluster.
+- Your local environment should have helm and kubectl setup to point to the cluster so you can run helm and kubectl commands.
 - The cluster should support a load balancer and persistent storage.
-- The cloud providers all have managed kubernetes clusters than can be used.  This example used oracle container engine.
-- The cluster should be setup with nodes with high cpu count.   Each AirMOS pod will be run a separate node.  The default configuration has two AirMOS pods so there should be at least two nodes.  A pod represents a single AirMOS process running the AirMOS docker container.
+- The cloud providers all have managed kubernetes clusters that can be used.  This example used oracle container engine.
+- The cluster should be setup with nodes with high cpu count.   Each AirMOS pod will be run in a separate node.  The default configuration has two AirMOS pods so there should be at least two nodes.  A pod represents a single AirMOS process running the AirMOS docker container.
 
 ### Installing AirMOS with default values
 To install, run these helm commands:
@@ -15,9 +15,8 @@ helm repo add airmos https://airmettle.github.io/airmos-helm-charts/
 helm install -n airmos airmos airmos/airmos
 ```
 
-
 ### Installing AirMOS with custom values
-Download and edit [values.yaml](values.yaml).  The file has instruction for modifying values such as the number of pods.
+Download and edit [values.yaml](values.yaml).  The file has instruction for modifying customizable values such as the number of pods.
 
 To install, run these helm commands:
 ```
@@ -57,10 +56,9 @@ airmos-0   1/1     Running   0          2m57s
 airmos-1   0/1     Running   0          77s
 ```
 
-
 ### Services
-If the AirMOS server comes up correctly, kubectl should show the service endpoints running.  The external IP shown can then be used with a browser
-to finish configuring the system.  For example, here you would open http://129.80.66.108 in a browser.
+If the AirMOS server comes up correctly, kubectl should show the service endpoints running.  The external IP shown can then be used with a web browser
+to finish configuring the system.  For example, here you would open http://129.80.66.108 in a web browser.
 ```
 kubectl get services -n airmos
 NAME         TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)        AGE
@@ -86,7 +84,7 @@ User Settings -> Accounts, add an account for the tenant you created.   The valu
 ![Setup 3](/img/setup3.png)
 
 ### Calling the S3 api
-The S3 secret is the secret you set for the account.  The S3 api key is formatted as tenant-apikey, where api key is the value to put for the account.
+The S3 secret is the secret you set for the account.  The S3 api key is formatted as tenant-apikey, where apikey is the value you put for the account.
 The S3 endpoint is the IP exposed by the load balancer or an nginx ingress if you set that up.
 In the UI example above, we would initialize the S3 connection as.
 ```
