@@ -9,8 +9,9 @@ Repository for the airmettle helm chart to install AirMOS software on a kubernet
 - The cluster should be setup with nodes with high cpu count.   Each AirMOS pod will be run in a separate node.  The default configuration has two AirMOS pods so there should be at least two nodes.  A pod represents a single AirMOS process running the AirMOS docker container.
 
 ### Installing AirMOS with default values
-To install, run these helm commands:
+To install, run these commands.  It will install in airmos kubernetes namespace.
 ```
+kubectl create namespace airmos
 helm repo add airmos https://airmettle.github.io/airmos-helm-charts/
 helm install -n airmos airmos airmos/airmos
 ```
@@ -18,8 +19,9 @@ helm install -n airmos airmos airmos/airmos
 ### Installing AirMOS with custom values
 Download and edit [values.yaml](values.yaml).  The file has instruction for modifying customizable values such as the number of pods.
 
-To install, run these helm commands:
+To install, run these commands. It will install in airmos kubernetes namespace.
 ```
+kubectl create namespace airmos
 helm repo add airmos https://airmettle.github.io/airmos-helm-charts/
 helm install -n airmos airmos airmos/airmos -f values.yaml
 ```
