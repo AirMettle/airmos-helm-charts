@@ -58,7 +58,7 @@ airmos-1   0/1     Running   0          77s
 ```
 
 
-### Service
+### Services
 If the AirMOS server comes up correctly, kubectl should show the service endpoints running.  The external IP shown can then be used with a browser
 to finish configuring the system.  For example, here you would open http://129.80.66.108 in a browser.
 ```
@@ -67,9 +67,10 @@ NAME         TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)        AGE
 airmos       ClusterIP      None            <none>          80/TCP         3m10s
 airmos-svc   LoadBalancer   10.96.198.120   129.80.66.108   80:31039/TCP   3m10s
 ```
+[values.yaml](values.yaml) also supports creating an ingress if you wish to use an nginx ingress instead of a load balancer.
 
 ### Admin UI login
-In the UI, login with Tenant: root, Hsername: admin, Password: airmos
+In the UI, login with Tenant: root, Username: admin, Password: airmos
 The password is configurable in [values.yaml](values.yaml).
 
 ![Setup 1](/img/setup1.png)
@@ -85,8 +86,19 @@ User Settings -> Accounts, add an account for the tenant you created.   The valu
 ![Setup 3](/img/setup3.png)
 
 ### Calling the S3 api
+The S3 secret is the secret you set for the account.  The S3 api key is formatted as tenant-apikey, where api key is the value to put for the account.
+The S3 endpoint is the IP exposed by the load balancer or an nginx ingress if you set that up.
+In the UI example above, we would initialize the S3 connection as.
+```
+    session = boto3.Session()
+    s3_client = session.client(
+       service_name='s3',
+       aws_access_key_id='test-test',
+       aws_secret_access_key='test',
+       endpoint_url='http://129.80.66.108'
+    )
 
-
+```
 ### Shutting down the cluster
 The AirMOS pods can be shutdown by running this command.
 ```
