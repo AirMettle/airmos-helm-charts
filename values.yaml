@@ -7,6 +7,8 @@ replicaCount: 2
 
 # Sets affinity so that there cannot be more than one AirMOS pod per node
 oneReplicaPerNode: true
+
+# Password for admin UI saved in kubernetes secrets.
 adminPassword: airmos
 
 terminationGracePeriodSeconds: 10
