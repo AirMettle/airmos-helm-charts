@@ -3,16 +3,20 @@
 # Declare variables to be passed into your templates.
 
 # Number of AirMOS instances to run.  There should be a node per replica if oneReplicaPerNode is set to true.
-replicaCount: 2
+replicaCount: 3
 
 # Sets affinity so that there cannot be more than one AirMOS pod per node
 oneReplicaPerNode: true
 
+# Number of nodes that store database
+numDbPods: 2
+
 # Password for admin UI saved in kubernetes secrets.
 adminPassword: airmos
 
-terminationGracePeriodSeconds: 10
+terminationGracePeriodSeconds: 180
 minReadySeconds: 10
+rollingUpdateEnabled: true
 
 image:
   repository: airmos/airmos
